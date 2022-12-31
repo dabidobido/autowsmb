@@ -2,7 +2,7 @@
 
 _addon.name     = 'autowsmb'
 _addon.author   = 'Dabidobido'
-_addon.version  = '1.4.0'
+_addon.version  = '1.4.1'
 _addon.commands = {'autowsmb', 'awsmb'}
 
 require('logger')
@@ -329,7 +329,7 @@ local function get_next_ws(player_tp, time_since_last_skillchain, buffs, target_
 			if ws_to_return ~= nil then
 				if time_since_last_skillchain >= sc_window_delay then
 					if settings[current_main_job]["max_tp_mode"] then
-						if player_tp >= ws_to_return.tp or sc_window_end - time_since_last_skillchain <= 2 then
+						if ws_to_return.recast_id or player_tp >= ws_to_return.tp or sc_window_end - time_since_last_skillchain <= 2 and player_tp >= 1000 then
 							if debug_print then notice("Doing SC with " .. ws_to_return.name .. " " .. time_since_last_skillchain .. " " .. sc_window_end) end
 							return ws_to_return
 						else

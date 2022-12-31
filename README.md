@@ -1,4 +1,88 @@
 #Auto WS and MB
+
+# How it works
+
+Use //autowsmb or //awsmb
+
+## //awsmb start (ws/mb)
+
+Starts auto ws/mb. Both if argument is omitted.
+
+## //awsmb stop (ws/mb)
+
+Stops auto ws/mb. Both if argument is omitted.
+
+## //awsmb dontopen
+
+Don't use open ws, only try to skill chain.
+
+## //awsmb open: 
+
+Use open ws.
+		
+## //awsmb setopenws (name,tp)
+
+Set the name of ws to open with and the minimum tp to use the ws.
+
+## //awsmb setwspriority ((name,tp,name,tp,...)
+
+Set the name of ws and tp of ws to try to skillchain with. will try to make skillchains in the order of input.
+
+## //awsmb setsclevel (1-4)
+
+Will only try to skillchain and make skillchains of the level set here or above.
+
+## //awsmb setspellpriority (spell_name,hpp,spell_name,hpp,...)
+
+Sets priority for spells to burst with. Will go in order of input and check elements. Hpp is amount of Hpp (HP percent) mob must have in order for spell to be used. Set to 0 for always use.
+
+## //awsmb spam (on/off) 
+
+Starts/Stops spamming opener ws
+
+## //awsmb amlvl (0-3, ws_name)
+
+Holds TP to trigger aftermath. Set to 0 to disable. 1-3 will trigger AM level 1-3. Use 1 for relic aftermath.
+
+## //awsmb fastcast (0-80) 
+
+Sets fastcast value for mb recast calculation. Default 80.
+
+## //awsmb mbstep (number 1+)
+
+MB only after skillchain has reached a specific step. Default 1.
+
+## //awsmb maxtp (on/off)
+
+Toggles Max TP Mode. In Max TP Mode, will hold tp until the value specified in setwspriority or setopenws commands, or hold until there is less than 2 seconds left in the skillchain window.
+
+E.g Setting Rudra's Storm,3000 will only use Rudra's Storm when you have 3000 TP or when there are less than 2 seconds left in the skillchain window.
+
+## //awsmb status:
+
+Prints current configuration to chatlog.
+
+## SC Example
+
+1. //awsmb setopenws Primal Rend,1750
+2. //awsmb setwspriority Decimation,1000,Cloudsplitter,1750
+3. //awsmb setsclevel 2
+
+Now, in this example, this will start with Primal Rend at 1750TP, then go to Cloudsplitter at 1750TP since there is no level 2 SC with Decimation from Primal Rend. After Cloudsplitter, this will then do Decimation at 1000TP to do a 3-step Light SC.
+
+But if Noillurie is in the party, if she does Tachi: Kaiten, this will wait for the skillchain window and do Decimation to 2-step Light. Or if this does Primal Rend and Noillurie does Tachi: Kaiten for a Fragmentation skillchain, this will then do Decimation for a 3-step Light.
+
+## MB Example
+
+1. //awsmb setspellpriority fire vi,50,thunder vi,50,water vi,50,fire v,40,blizzard iii,30
+
+When there is a liquefaction skillchain, will try to burst Fire VI and Fire V after casting Fire VI + 3 seconds. Use //awsmb fastcast (value) to set your fastcast value so that the casting time can be calculated correctly.
+
+## Version History
+
+1.4.1:
+- Fix trying to ws when not enough tp in maxtp mode
+
 1.4.0:
 - Added maxtp command. 
 
@@ -105,81 +189,3 @@
 
 0.0.1: 
 - Auto ws and try to skillchain
-
-# How it works
-
-Use //autowsmb or //awsmb
-
-## //awsmb start (ws/mb)
-
-Starts auto ws/mb. Both if argument is omitted.
-
-## //awsmb stop (ws/mb)
-
-Stops auto ws/mb. Both if argument is omitted.
-
-## //awsmb dontopen
-
-Don't use open ws, only try to skill chain.
-
-## //awsmb open: 
-
-Use open ws.
-		
-## //awsmb setopenws (name,tp)
-
-Set the name of ws to open with and the minimum tp to use the ws.
-
-## //awsmb setwspriority ((name,tp,name,tp,...)
-
-Set the name of ws and tp of ws to try to skillchain with. will try to make skillchains in the order of input.
-
-## //awsmb setsclevel (1-4)
-
-Will only try to skillchain and make skillchains of the level set here or above.
-
-## //awsmb setspellpriority (spell_name,hpp,spell_name,hpp,...)
-
-Sets priority for spells to burst with. Will go in order of input and check elements. Hpp is amount of Hpp (HP percent) mob must have in order for spell to be used. Set to 0 for always use.
-
-## //awsmb spam (on/off) 
-
-Starts/Stops spamming opener ws
-
-## //awsmb amlvl (0-3, ws_name)
-
-Holds TP to trigger aftermath. Set to 0 to disable. 1-3 will trigger AM level 1-3. Use 1 for relic aftermath.
-
-## //awsmb fastcast (0-80) 
-
-Sets fastcast value for mb recast calculation. Default 80.
-
-## //awsmb mbstep (number 1+)
-
-MB only after skillchain has reached a specific step. Default 1.
-
-## //awsmb maxtp (on/off)
-
-Toggles Max TP Mode. In Max TP Mode, will hold tp until the value specified in setwspriority or setopenws commands, or hold until there is less than 2 second sleft in the skillchain window.
-
-E.g Setting Rudra's Storm,3000 will only use Rudra's Storm when you have 3000 TP or when there are less than 2 seconds left in the skillchain window.
-
-## //awsmb status:
-
-Prints current configuration to chatlog.
-
-## SC Example
-
-1. //awsmb setopenws Primal Rend,1750
-2. //awsmb setwspriority Decimation,1000,Cloudsplitter,1750
-3. //awsmb setsclevel 2
-
-Now, in this example, this will start with Primal Rend at 1750TP, then go to Cloudsplitter at 1750TP since there is no level 2 SC with Decimation from Primal Rend. After Cloudsplitter, this will then do Decimation at 1000TP to do a 3-step Light SC.
-
-But if Noillurie is in the party, if she does Tachi: Kaiten, this will wait for the skillchain window and do Decimation to 2-step Light. Or if this does Primal Rend and Noillurie does Tachi: Kaiten for a Fragmentation skillchain, this will then do Decimation for a 3-step Light.
-
-## MB Example
-
-1. //awsmb setspellpriority fire vi,50,thunder vi,50,water vi,50,fire v,40,blizzard iii,30
-
-When there is a liquefaction skillchain, will try to burst Fire VI and Fire V after casting Fire VI + 3 seconds. Use //awsmb fastcast (value) to set your fastcast value so that the casting time can be calculated correctly.
